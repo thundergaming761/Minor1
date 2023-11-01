@@ -2,7 +2,7 @@ import java.util.Random;
 
 public class markov {
     public static void main(String[] args) {
-        int numTosses = 100;  // Number of coin tosses
+        int numTosses = 100;  // Number of coin toss
 
         // Transition matrix: [Heads, Tails]
         double[][] transitionMatrix = {
