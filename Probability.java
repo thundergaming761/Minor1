@@ -1,6 +1,7 @@
 import java.io.BufferedReader;  
 import java.io.FileReader;  
-import java.io.IOException; 
+import java.io.IOException;
+
 public class Probability  
 {  
 public static void main(String[] args)   
@@ -25,6 +26,26 @@ String[] toss = line.split(splitBy);    // use comma as separator
 data[k]=toss;
 k++;
 }
+
+String train[][] = new String[(int)(0.8*1220)][1];
+String test[][] = new String[(int)(0.2*1220)][1];
+
+for(int i=0;i<train.length;i++)
+{
+    train[i][0] = data[i][0];
+}
+
+k=0;
+for(int i=976;i<data.length;i++)
+{
+    test[k++][0] = data[i][0];
+}
+
+for(int i=0;i<train.length;i++)
+{
+    System.out.println(train[i][0]);
+}
+
 for(int i=0;i<1220;i++)
 {
 if(data[i][0].equals("H"))
