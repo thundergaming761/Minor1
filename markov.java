@@ -1,6 +1,7 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Random;
 
 public class markov {
 
@@ -99,40 +100,45 @@ public class markov {
         th=th/h;
     }
 
+    void accuracy()
+    {
+        int numTosses = 244;  // Number of coin toss
+
+        // Transition matrix: [Heads, Tails]
+        double[][] transitionMatrix = {
+            //H     T
+            {hh, ht},  // H
+            {th, tt}   // T
+        };
+
+        // Initial state: Start with "Heads"
+        int currentState = 0;  // 0 represents "Heads," 1 represents "Tails"
+
+        // Simulate coin tosses
+        Random random = new Random();
+        for (int toss = 1; toss <= numTosses; toss++) {
+            // Perform the next toss based on the transition probabilities
+            double randomValue = random.nextDouble();
+            if (randomValue < transitionMatrix[currentState][0]) {
+                // Transition to "Heads"
+                System.out.println("Toss " + toss + ": Heads");
+                currentState = 0;
+            } else {
+                // Transition to "Tails"
+                System.out.println("Toss " + toss + ": Tails");
+                currentState = 1;
+            }
+        }
+    }
+
     public static void main(String[] args) {
 
         markov obj = new markov();
         obj.input();
         obj.trainTestSplit();
         obj.probability();
-        System.out.println(obj.hh+" "+obj.tt+" "+obj.ht+" "+obj.th);
-        // int numTosses = 100;  // Number of coin toss
-
-        // // Transition matrix: [Heads, Tails]
-        // double[][] transitionMatrix = {
-        //     //H     T
-        //     {0.47, 0.53},  // H
-        //     {0.54, 0.46}   // T
-        // };
-
-        // // Initial state: Start with "Heads"
-        // int currentState = 0;  // 0 represents "Heads," 1 represents "Tails"
-
-        // // Simulate coin tosses
-        // Random random = new Random();
-        // for (int toss = 1; toss <= numTosses; toss++) {
-        //     // Perform the next toss based on the transition probabilities
-        //     double randomValue = random.nextDouble();
-        //     if (randomValue < transitionMatrix[currentState][0]) {
-        //         // Transition to "Heads"
-        //         System.out.println("Toss " + toss + ": Heads");
-        //         currentState = 0;
-        //     } else {
-        //         // Transition to "Tails"
-        //         System.out.println("Toss " + toss + ": Tails");
-        //         currentState = 1;
-        //     }
-        // }
+        obj.accuracy();
+        
     }
 }
 
