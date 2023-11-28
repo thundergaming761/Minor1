@@ -41,36 +41,18 @@ public class markov {
     void trainTestSplit()
     {
         int k=0;
-        int in[] = new int[(int)(0.8*1220)];
         for(int i=0;i<(int)(0.8*1220);i++)
         {
-            int rand = (int)(Math.random()*1220);
-            in[i] = rand;
-            train[k++][0] = data[rand][0];
+            train[k++][0] = data[i][0];
         }
         k=0;
-        for(int i=0;i<1220;i++)
+        for(int i=(int)(0.8*1220);i<1220;i++)
         {
-            int flag=0;
-            for(int j=0;j<in.length;j++)
-            {
-                if(i==in[j])
-                {
-                    flag = 1;
-                    break;
-                }
-            }
-            if(k==244)
-            break;
-            if(flag==0)
-            {
-                // System.out.println(i);
-                test[k++][0] = data[i][0];
-            }
+            test[k++][0] = data[i][0];
         }
-        // for(int i=0;i<in.length;i++)
+        // for(int i=0;i<test.length;i++)
         // {
-        //     System.out.println(in[i]);
+        //     System.out.println(test[i][0]);
         // }
     }
 
@@ -115,20 +97,22 @@ public class markov {
         int currentState = 0;  // 0 represents "Heads," 1 represents "Tails"
 
         // Simulate coin tosses
+        int cp=0;
         Random random = new Random();
-        for (int toss = 1; toss <= numTosses; toss++) {
+        for (int toss = 0; toss < numTosses; toss++) {
             // Perform the next toss based on the transition probabilities
             double randomValue = random.nextDouble();
             if (randomValue < transitionMatrix[currentState][0]) {
-                // Transition to "Heads"
-                System.out.println("Toss " + toss + ": Heads");
+                if(test[toss][0].equals("H"))
+                cp++;
                 currentState = 0;
             } else {
-                // Transition to "Tails"
-                System.out.println("Toss " + toss + ": Tails");
+                if(test[toss][0].equals("T"))
+                cp++;
                 currentState = 1;
             }
         }
+        System.out.println(((cp/244.0)*100));
     }
 
     public static void main(String[] args) {
@@ -138,7 +122,6 @@ public class markov {
         obj.trainTestSplit();
         obj.probability();
         obj.accuracy();
-        
     }
 }
 
