@@ -43,6 +43,8 @@ let tailsCount = 0;
       lastFlipResultElement.innerText = `Last Flip: ${results.join(', ')}`;
     }
 
+    let listItems = [];
+
     app.get('/', function (req, res) {
         const __dirname = "D:/UPES notes/Semester-5/Minor project 1/Website Minor";
         const options = {
@@ -76,7 +78,8 @@ let tailsCount = 0;
     app.get("/new",async(req,res)=>{
         headsCount = await db.query("SELECT head FROM count");
         tailsCount = await db.query("SELECT tail FROM count");
-        res.render("new.ejs",{headsCount : headsCount.rows[0].head,tailsCount : tailsCount.rows[0].tail});
+        res.render("new.ejs",{headsCount : headsCount.rows[0].head,tailsCount : tailsCount.rows[0].tail,listItems : listItems});
+        listItems = [];
     });
 
     app.post("/flip1",async(req,res)=>{
@@ -84,10 +87,12 @@ let tailsCount = 0;
         if(result === "Heads"){
             headsCount = await db.query("SELECT head FROM count");
             await db.query("UPDATE count SET head = "+(headsCount.rows[0].head+1));
+            listItems.push("Heads");
         }
         else if(result === "Tails"){
             tailsCount = await db.query("SELECT tail FROM count");
             await db.query("UPDATE count SET tail = "+(tailsCount.rows[0].tail+1));
+            listItems.push("Tails");
         }
         res.redirect("/new");
     });
@@ -98,10 +103,12 @@ let tailsCount = 0;
         if(result === "Heads"){
           headsCount = await db.query("SELECT head FROM count");
           await db.query("UPDATE count SET head = "+(headsCount.rows[0].head+1));
+          listItems.push("Heads");
       }
       else if(result === "Tails"){
           tailsCount = await db.query("SELECT tail FROM count");
           await db.query("UPDATE count SET tail = "+(tailsCount.rows[0].tail+1));
+          listItems.push("Tails");
       }
       }
       res.redirect("/new");
@@ -113,10 +120,12 @@ let tailsCount = 0;
       if(result === "Heads"){
         headsCount = await db.query("SELECT head FROM count");
         await db.query("UPDATE count SET head = "+(headsCount.rows[0].head+1));
+        listItems.push("Heads");
     }
     else if(result === "Tails"){
         tailsCount = await db.query("SELECT tail FROM count");
         await db.query("UPDATE count SET tail = "+(tailsCount.rows[0].tail+1));
+        listItems.push("Tails");
     }
     }
     res.redirect("/new");

@@ -76,16 +76,19 @@
   </div>
 
   <div id="main-container">
-    <div id="coin-container">
+    <!-- <div id="coin-container">
       <div class="coin" id="coin" onclick="flipCoin()">Click to Flip</div>
-    </div>
+    </div> -->
 
     <div id="card">
       <h2>Results</h2>
       <p>Heads Count: <span id="headsCount"><%= headsCount %></span></p>
       <p>Tails Count: <span id="tailsCount"><%= tailsCount %></span></p>
       <h3>Last Flip:</h3>
-      <p id="lastFlipResult"></p>
+      <% for(let item of listItems){%>
+      
+      <p id="lastFlipResult"><%= item %></p>
+      <% } %>
 
       
       <form action="/flip1" method="post">
