@@ -5,9 +5,9 @@ import java.util.Random;
 
 public class markov {
 
-    String data[][]=new String[1220][];
-    String train[][] = new String[(int)(0.8*1220)][1];
-    String test[][] = new String[(int)(0.2*1220)][1];
+    String data[][]=new String[1830][];
+    String train[][] = new String[(int)(0.8*1830)][1];
+    String test[][] = new String[(int)(0.2*1830)][1];
     int h=0;
     int t=0;
     double hh=0;
@@ -41,12 +41,12 @@ public class markov {
     void trainTestSplit()
     {
         int k=0;
-        for(int i=0;i<(int)(0.8*1220);i++)
+        for(int i=0;i<(int)(0.8*data.length);i++)
         {
             train[k++][0] = data[i][0];
         }
         k=0;
-        for(int i=(int)(0.8*1220);i<1220;i++)
+        for(int i=(int)(0.8*data.length);i<data.length;i++)
         {
             test[k++][0] = data[i][0];
         }
@@ -58,14 +58,14 @@ public class markov {
 
     void probability()
     {
-        for(int i=0;i<(int)(0.8*1220);i++)
+        for(int i=0;i<(int)(0.8*data.length);i++)
         {
             if(train[i][0].equals("H"))
                 h++;
             else
                 t++;
         }
-        for(int i=0;i<((int)(0.8*1220)-1);i++)
+        for(int i=0;i<((int)(0.8*data.length)-1);i++)
         {
             if(train[i][0].equals("H") && train[i+1][0].equals("H"))
                 hh++;
@@ -76,21 +76,29 @@ public class markov {
             else if(train[i][0].equals("T") && train[i+1][0].equals("H"))
                 th++;
         }
+        System.out.println("Probability of head occuring after head "+hh);
+        System.out.println("Probability of tail occuring after tail "+tt);
+        System.out.println("Probability of tail occuring after head "+ht);
+        System.out.println("Probability of head occuring after tail "+th);
         hh=hh/h;
         tt=tt/t;
         ht=ht/t;
         th=th/h;
+        // System.out.println("Probability of head occuring after head "+hh);
+        // System.out.println("Probability of tail occuring after tail "+tt);
+        // System.out.println("Probability of tail occuring after head "+ht);
+        // System.out.println("Probability of head occuring after tail "+th);
     }
 
     void accuracy()
     {
-        int numTosses = 244;  // Number of coin toss
+        int numTosses = 366;  // Number of coin toss
 
         // Transition matrix: [Heads, Tails]
         double[][] transitionMatrix = {
             //H     T
-            {hh, ht},  // H
-            {th, tt}   // T
+            {0.2, 0.8},  // H
+            {0.8, 0.2}   // T
         };
 
         // Initial state: Start with "Heads"
@@ -112,7 +120,7 @@ public class markov {
                 currentState = 1;
             }
         }
-        System.out.println(((cp/244.0)*100));
+        System.out.println("Accurarcy of model is "+((cp/244.0)*100)+" %");
     }
 
     public static void main(String[] args) {
