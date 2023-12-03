@@ -76,18 +76,14 @@ public class markov {
             else if(train[i][0].equals("T") && train[i+1][0].equals("H"))
                 th++;
         }
-        System.out.println("Probability of head occuring after head "+hh);
-        System.out.println("Probability of tail occuring after tail "+tt);
-        System.out.println("Probability of tail occuring after head "+ht);
-        System.out.println("Probability of head occuring after tail "+th);
         hh=hh/h;
         tt=tt/t;
         ht=ht/t;
         th=th/h;
-        // System.out.println("Probability of head occuring after head "+hh);
-        // System.out.println("Probability of tail occuring after tail "+tt);
-        // System.out.println("Probability of tail occuring after head "+ht);
-        // System.out.println("Probability of head occuring after tail "+th);
+        System.out.println("Probability of head occuring after head "+hh);
+        System.out.println("Probability of tail occuring after tail "+tt);
+        System.out.println("Probability of tail occuring after head "+ht);
+        System.out.println("Probability of head occuring after tail "+th);
     }
 
     void accuracy()
@@ -97,8 +93,8 @@ public class markov {
         // Transition matrix: [Heads, Tails]
         double[][] transitionMatrix = {
             //H     T
-            {0.2, 0.8},  // H
-            {0.8, 0.2}   // T
+            {hh, ht},  // H
+            {th, tt}   // T
         };
 
         // Initial state: Start with "Heads"
