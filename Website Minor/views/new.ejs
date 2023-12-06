@@ -4,7 +4,11 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Coin Flip Simulator</title>
-  
+  <base href="/">
+  <link
+            rel="stylesheet"
+            href="/Website Minor/public/coin.css"
+        />
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
   <style>
     body {
@@ -48,7 +52,27 @@
     button {
       margin-top: 10px;
     }
-    
+    #sample{
+      border-radius: 500px;
+      width: 200px;
+      height: 200px;
+    }
+    #image{
+      border: none;
+    }
+    @keyframes spin { 
+    0% { 
+        transform: rotateX(0deg); 
+    } 
+    100% { 
+        transform: rotateX(360deg); 
+    } 
+} 
+  
+.flip { 
+    animation: spin 1s 
+        cubic-bezier(0.4, 2.5, 0.6, 0.5); 
+} 
   </style>
 </head>
 <body>
@@ -93,7 +117,8 @@
 
       
       <form action="/flip1" method="post">
-        <button>Flip Coin 1 time</button>
+        <!-- <button>Flip Coin 1 time</button> -->
+        <button id="image"><img id ="sample" src="https://www.indiagovtmint.in/wp-content/uploads/2023/01/Shri-Krishna-Chaitanya-Mahaprabhu-10-OBV-324x324.jpg"/></button>
       </form>
       <form action="/flip10" method="post">
       <button>Flip Coin 10 times</button>
@@ -105,6 +130,18 @@
   </div>
 
 
-  <script></script>
+  <script>
+    const tossBtn =  document.getElementById('sample');
+console.log(tossBtn);
+tossBtn.addEventListener('click', () => { 
+    var audio = new Audio("./coin-flip-shimmer-85750.mp3")
+    audio.play();
+    tossBtn.classList.add('flip');
+    setTimeout(()=>{
+        tossBtn.classList.remove('flip'); 
+    },1000)
+});
+
+  </script>
 </body>
 </html>

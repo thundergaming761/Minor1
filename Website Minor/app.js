@@ -96,7 +96,10 @@ app.post("/flip1", async (req, res) => {
     await db.query("UPDATE count SET tail = " + (tailsCount.rows[0].tail + 1));
     listItems.push("Tails");
   }
-  res.redirect("/new");
+  setTimeout(()=>{
+    res.redirect("/new");
+  },1000);
+  
 });
 
 app.post("/flip10", async (req, res) => {
